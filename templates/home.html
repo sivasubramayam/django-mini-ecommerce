@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form method="GET" class="mb-4">
+
+<select name="category" class="form-select">
+
+<option value="">All Categories</option>
+
+{% for category in categories %}
+
+<option value="{{ category.id }}">
+    {{ category.name }}
+</option>
+
+{% endfor %}
+
+</select>
+
+<button class="btn btn-primary mt-2">
+Filter
+</button>
+
+</form>
+
+<h2 class="mb-4">Products</h2>
+
+<div class="row">
+
+{% for product in products %}
+
+<div class="col-md-4">
+
+<div class="card mb-4">
+
+{% if product.image %}
+<img src="{{ product.image.url }}"
+class="card-img-top"
+height="250">
+{% endif %}
+
+<div class="card-body">
+
+<h5>
+    <a href="{% url 'product_detail' product.id %}">
+        {{ product.name }}
+    </a>
+</h5>
+
+<p>{{ product.description }}</p>
+
+<h4>₹ {{ product.price }}</h4>
+
+<button class="btn btn-primary">
+Add to Cart
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+{% empty %}
+
+<h3>No Products Available</h3>
+
+{% endfor %}
+
+</div>
+
+{% endblock %}
